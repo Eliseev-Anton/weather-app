@@ -9,7 +9,7 @@
     <img src="https://github.com/user-attachments/assets/e0211685-502b-4b09-8240-32ae6f3010a4" width="30%"/>                                                                                                                                                                                                                                                            
     <img src="https://github.com/user-attachments/assets/f77ac4a8-36f5-45fc-b2c7-7b91b9c677c8" width="30%"/>                                                                                                                                                                                                                                                    
   </p>     
-## Функциональность
+##Функциональность
 
 - Текущая погода: температура, ощущается как, влажность, ветер, UV-индекс
 - Почасовой прогноз — оставшиеся часы сегодня + все часы завтра
