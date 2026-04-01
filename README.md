@@ -1,6 +1,6 @@
 # WeatherApp
 
-Погодное приложение для iOS, написанное на Swift + UIKit полностью программно, без Storyboard.
+Погодное приложение для iOS, написанное на Swift + UIKit
 
 ## Скриншоты
 <img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 - 2026-04-01 at 13 10 50" src="https://github.com/user-attachments/assets/09a69e93-34f1-4282-b984-794a85ab7903" />
