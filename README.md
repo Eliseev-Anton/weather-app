@@ -7,7 +7,7 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/7a0dcbb1-29ba-48b9-a6d7-87fa2da00569" width="30%" />
   <img src="https://github.com/user-attachments/assets/2768e811-e95e-474c-b5f9-d7961b8dac38" width="30%" />
-  <img src="https://github.com/user-attachments/assets/fb0e2832-bfed-405c-b056-7f57d1d094c3" width="30%" />
+  <img src="https://github.com/user-attachments/assets/7da1e74f-6d26-46b0-85ff-c84f00747913" width="30%" />
   <img src="https://github.com/user-attachments/assets/6b567306-8461-413d-a8b1-5aaf0c3ae4eb" width="30%" />
 </p>
 
