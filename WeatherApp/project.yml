@@ -33,3 +33,15 @@ targets:
       SWIFT_VERSION: "5.0"
       CODE_SIGN_STYLE: Automatic
       PRODUCT_BUNDLE_IDENTIFIER: com.weather.WeatherApp
+
+  WeatherAppTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - WeatherAppTests
+    dependencies:
+      - target: WeatherApp
+    settings:
+      SWIFT_VERSION: "5.0"
+      GENERATE_INFOPLIST_FILE: true
+      PRODUCT_BUNDLE_IDENTIFIER: com.weather.WeatherAppTests
