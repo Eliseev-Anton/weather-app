@@ -1,15 +1,15 @@
 # WeatherApp
 
-Погодное приложение для iOS, написанное на Swift + UIKit
+Погодное приложение для iOS, написанное на Swift + UIKit полностью программно, без Storyboard.
 
-            
-  ## Скриншоты                                                                                                                                                                                                                                                                                                                                                    
-  <p align="center">                                                                                                                                                                                                                                                                                                                                                    
-    <img src="https://github.com/user-attachments/assets/09a69e93-34f1-4282-b984-794a85ab7903" width="30%"/>                                                                                                                                                                                                                                                            
-    <img src="https://github.com/user-attachments/assets/e0211685-502b-4b09-8240-32ae6f3010a4" width="30%"/>                                                                                                                                                                                                                                                            
-    <img src="https://github.com/user-attachments/assets/f77ac4a8-36f5-45fc-b2c7-7b91b9c677c8" width="30%"/>                                                                                                                                                                                                                                                    
-  </p>     
-  
+## Скриншоты
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/09a69e93-34f1-4282-b984-794a85ab7903" width="30%"/>
+  <img src="https://github.com/user-attachments/assets/e0211685-502b-4b09-8240-32ae6f3010a4" width="30%"/>
+  <img src="https://github.com/user-attachments/assets/f77ac4a8-36f5-45fc-b2c7-7b91b9c677c8" width="30%"/>
+</p>
+
 ## Функциональность
 
 - Текущая погода: температура, ощущается как, влажность, ветер, UV-индекс
@@ -17,6 +17,8 @@
 - Прогноз на 3 дня с градиентным температурным баром
 - Автоматическое определение геолокации, при отказе — Москва
 - Поиск погоды по названию города
+- Выбор местоположения на интерактивной карте (MapKit)
+- Сохранение последней выбранной точки на карте между сессиями
 - Состояния загрузки и ошибки с кнопкой повтора
 
 ## Стек
@@ -24,6 +26,7 @@
 - **Swift 5**, **UIKit** — программная вёрстка, без Storyboard
 - **async/await** — сетевые запросы и геолокация
 - **CoreLocation** — определение координат пользователя
+- **MapKit** — интерактивная карта с выбором точки
 - **URLSession** — HTTP-запросы без сторонних зависимостей
 - **XCTest** — unit-тесты
 - **XcodeGen** — генерация `.xcodeproj` из `project.yml`
@@ -47,6 +50,7 @@ WeatherApp/
 │       ├── CurrentWeatherView
 │       ├── HourlyCollectionView + HourlyCell
 │       ├── DailyForecastView + TemperatureBarView
+│       ├── MapViewController   # Выбор точки на карте
 │       ├── SearchViewController
 │       ├── LoadingView
 │       └── ErrorView
