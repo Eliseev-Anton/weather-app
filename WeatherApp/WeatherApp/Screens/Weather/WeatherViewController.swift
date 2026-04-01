@@ -17,6 +17,7 @@ final class WeatherViewController: UIViewController {
 
     private let gradientLayer = CAGradientLayer()
     private let searchButton = UIButton(type: .system)
+    private let mapButton = UIButton(type: .system)
 
     // MARK: - Init
 
@@ -38,6 +39,7 @@ final class WeatherViewController: UIViewController {
         setupContentStack()
         setupStateViews()
         setupSearchButton()
+        setupMapButton()
         bindViewModel()
         viewModel.loadWeather()
     }
@@ -131,7 +133,33 @@ final class WeatherViewController: UIViewController {
         ])
     }
 
-    // MARK: - Search
+    private func setupMapButton() {
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+        let image = UIImage(systemName: "map", withConfiguration: config)
+        mapButton.setImage(image, for: .normal)
+        mapButton.tintColor = .white
+        mapButton.translatesAutoresizingMaskIntoConstraints = false
+        mapButton.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
+        view.addSubview(mapButton)
+
+        NSLayoutConstraint.activate([
+            mapButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            mapButton.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor, constant: -16),
+            mapButton.widthAnchor.constraint(equalToConstant: 36),
+            mapButton.heightAnchor.constraint(equalToConstant: 36)
+        ])
+    }
+
+    // MARK: - Search & Map
+
+    @objc private func mapButtonTapped() {
+        let mapVC = MapViewController()
+        mapVC.onLocationSelected = { [weak self] coordinate in
+            self?.viewModel.loadWeather(at: coordinate)
+        }
+        mapVC.modalPresentationStyle = .fullScreen
+        present(mapVC, animated: true)
+    }
 
     @objc private func searchButtonTapped() {
         let searchVC = SearchViewController()

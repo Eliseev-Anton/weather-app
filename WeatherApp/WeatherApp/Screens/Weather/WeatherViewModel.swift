@@ -32,6 +32,19 @@ final class WeatherViewModel {
         }
     }
 
+    func loadWeather(at coordinate: CLLocationCoordinate2D) {
+        state = .loading
+
+        Task {
+            do {
+                let data = try await weatherService.fetchWeather(for: coordinate)
+                state = .loaded(data)
+            } catch {
+                state = .error(error.localizedDescription)
+            }
+        }
+    }
+
     func search(city: String) {
         let trimmed = city.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else {
