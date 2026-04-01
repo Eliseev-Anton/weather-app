@@ -2,11 +2,13 @@
 
 Погодное приложение для iOS, написанное на Swift + UIKit
 
-## Скриншоты
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 - 2026-04-01 at 13 10 50" src="https://github.com/user-attachments/assets/09a69e93-34f1-4282-b984-794a85ab7903" />
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 - 2026-04-01 at 13 11 00" src="https://github.com/user-attachments/assets/e0211685-502b-4b09-8240-32ae6f3010a4" />
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 - 2026-04-01 at 13 11 22" src="https://github.com/user-attachments/assets/f77ac4a8-36f5-45fc-b2c7-7b91b9c677c8" />
-
+            
+  ## Скриншоты                                                                                                                                                                                                                                                                                                                                                    
+  <p align="center">                                                                                                                                                                                                                                                                                                                                                    
+    <img src="https://github.com/user-attachments/assets/09a69e93-34f1-4282-b984-794a85ab7903" width="30%"/>                                                                                                                                                                                                                                                            
+    <img src="https://github.com/user-attachments/assets/e0211685-502b-4b09-8240-32ae6f3010a4" width="30%"/>                                                                                                                                                                                                                                                            
+    <img src="https://github.com/user-attachments/assets/f77ac4a8-36f5-45fc-b2c7-7b91b9c677c8" width="30%"/>                                                                                                                                                                                                                                                    
+  </p>     
 ## Функциональность
 
 - Текущая погода: температура, ощущается как, влажность, ветер, UV-индекс
