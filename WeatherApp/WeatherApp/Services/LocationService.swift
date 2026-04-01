@@ -30,10 +30,6 @@ final class LocationService: NSObject {
     }
 
     private func fetchLocation() async -> CLLocationCoordinate2D {
-        if let location = manager.location {
-            return location.coordinate
-        }
-
         return await withCheckedContinuation { continuation in
             self.continuation = continuation
             manager.requestLocation()

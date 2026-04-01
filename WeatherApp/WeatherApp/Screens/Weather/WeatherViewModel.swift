@@ -31,4 +31,22 @@ final class WeatherViewModel {
             }
         }
     }
+
+    func search(city: String) {
+        let trimmed = city.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else {
+            loadWeather()
+            return
+        }
+        state = .loading
+
+        Task {
+            do {
+                let data = try await weatherService.fetchWeather(city: trimmed)
+                state = .loaded(data)
+            } catch {
+                state = .error("Город не найден")
+            }
+        }
+    }
 }

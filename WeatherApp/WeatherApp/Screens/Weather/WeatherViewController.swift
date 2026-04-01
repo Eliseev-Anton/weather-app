@@ -16,6 +16,7 @@ final class WeatherViewController: UIViewController {
     private let dailyView = DailyForecastView()
 
     private let gradientLayer = CAGradientLayer()
+    private let searchButton = UIButton(type: .system)
 
     // MARK: - Init
 
@@ -36,6 +37,7 @@ final class WeatherViewController: UIViewController {
         setupScrollView()
         setupContentStack()
         setupStateViews()
+        setupSearchButton()
         bindViewModel()
         viewModel.loadWeather()
     }
@@ -110,6 +112,35 @@ final class WeatherViewController: UIViewController {
         errorView.onRetry = { [weak self] in
             self?.viewModel.loadWeather()
         }
+    }
+
+    private func setupSearchButton() {
+        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+        let image = UIImage(systemName: "magnifyingglass", withConfiguration: config)
+        searchButton.setImage(image, for: .normal)
+        searchButton.tintColor = .white
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
+        searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+        view.addSubview(searchButton)
+
+        NSLayoutConstraint.activate([
+            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            searchButton.widthAnchor.constraint(equalToConstant: 36),
+            searchButton.heightAnchor.constraint(equalToConstant: 36)
+        ])
+    }
+
+    // MARK: - Search
+
+    @objc private func searchButtonTapped() {
+        let searchVC = SearchViewController()
+        searchVC.onCitySelected = { [weak self] city in
+            self?.viewModel.search(city: city)
+        }
+        searchVC.modalPresentationStyle = .overFullScreen
+        searchVC.modalTransitionStyle = .crossDissolve
+        present(searchVC, animated: true)
     }
 
     // MARK: - Binding

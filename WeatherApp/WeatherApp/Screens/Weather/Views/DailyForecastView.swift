@@ -56,98 +56,96 @@ final class DailyForecastView: UIView {
     func configure(with items: [DailyItem]) {
         rowsStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
+        let globalMin = items.map { $0.minTemp }.min() ?? 0
+        let globalMax = items.map { $0.maxTemp }.max() ?? 0
+
         for (index, item) in items.enumerated() {
-            let row = makeDayRow(item)
+            let row = makeDayRow(item, globalMin: globalMin, globalMax: globalMax)
             rowsStack.addArrangedSubview(row)
 
             if index < items.count - 1 {
+                let insetWrapper = UIView()
+                insetWrapper.translatesAutoresizingMaskIntoConstraints = false
+
                 let sep = UIView()
                 sep.backgroundColor = .Weather.separator
                 sep.translatesAutoresizingMaskIntoConstraints = false
-                sep.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-                rowsStack.addArrangedSubview(sep)
-
-                let insetWrapper = UIView()
                 insetWrapper.addSubview(sep)
-                sep.translatesAutoresizingMaskIntoConstraints = false
+
                 NSLayoutConstraint.activate([
+                    insetWrapper.heightAnchor.constraint(equalToConstant: 0.5),
                     sep.topAnchor.constraint(equalTo: insetWrapper.topAnchor),
                     sep.bottomAnchor.constraint(equalTo: insetWrapper.bottomAnchor),
                     sep.leadingAnchor.constraint(equalTo: insetWrapper.leadingAnchor, constant: 16),
                     sep.trailingAnchor.constraint(equalTo: insetWrapper.trailingAnchor, constant: -16)
                 ])
 
-                // Replace: remove sep from rowsStack, add wrapper instead
-                rowsStack.removeArrangedSubview(sep)
-                sep.removeFromSuperview()
                 rowsStack.addArrangedSubview(insetWrapper)
             }
         }
     }
 
-    private func makeDayRow(_ item: DailyItem) -> UIView {
+    private func makeDayRow(_ item: DailyItem, globalMin: Int, globalMax: Int) -> UIView {
         let container = UIView()
-        container.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        container.heightAnchor.constraint(equalToConstant: 44).isActive = true
 
         let dayLabel = UILabel()
         dayLabel.text = item.dayName
-        dayLabel.font = .systemFont(ofSize: 16, weight: .medium)
+        dayLabel.font = .systemFont(ofSize: 17, weight: .medium)
         dayLabel.textColor = .Weather.primaryText
         dayLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let iconView = UIImageView()
-        iconView.image = WeatherIcon.image(for: item.conditionCode, pointSize: 20)
+        iconView.image = WeatherIcon.image(for: item.conditionCode, pointSize: 18)
         iconView.contentMode = .scaleAspectFit
         iconView.translatesAutoresizingMaskIntoConstraints = false
 
-        let rainLabel = UILabel()
-        if item.chanceOfRain > 0 {
-            rainLabel.text = "\(item.chanceOfRain)%"
-            rainLabel.font = .systemFont(ofSize: 13, weight: .medium)
-            rainLabel.textColor = UIColor.systemCyan
-        }
-        rainLabel.translatesAutoresizingMaskIntoConstraints = false
-
         let minLabel = UILabel()
         minLabel.text = "\(item.minTemp)°"
-        minLabel.font = .systemFont(ofSize: 16, weight: .regular)
+        minLabel.font = .systemFont(ofSize: 17, weight: .regular)
         minLabel.textColor = .Weather.secondaryText
         minLabel.textAlignment = .right
         minLabel.translatesAutoresizingMaskIntoConstraints = false
 
+        let barView = TemperatureBarView()
+        barView.translatesAutoresizingMaskIntoConstraints = false
+        barView.configure(min: item.minTemp, max: item.maxTemp, globalMin: globalMin, globalMax: globalMax)
+
         let maxLabel = UILabel()
         maxLabel.text = "\(item.maxTemp)°"
-        maxLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        maxLabel.font = .systemFont(ofSize: 17, weight: .medium)
         maxLabel.textColor = .Weather.primaryText
         maxLabel.textAlignment = .right
         maxLabel.translatesAutoresizingMaskIntoConstraints = false
 
         container.addSubview(dayLabel)
         container.addSubview(iconView)
-        container.addSubview(rainLabel)
         container.addSubview(minLabel)
+        container.addSubview(barView)
         container.addSubview(maxLabel)
 
         NSLayoutConstraint.activate([
             dayLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
             dayLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-            dayLabel.widthAnchor.constraint(equalToConstant: 110),
+            dayLabel.widthAnchor.constraint(equalToConstant: 80),
 
-            iconView.leadingAnchor.constraint(equalTo: dayLabel.trailingAnchor, constant: 8),
+            iconView.leadingAnchor.constraint(equalTo: dayLabel.trailingAnchor, constant: 4),
             iconView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-            iconView.widthAnchor.constraint(equalToConstant: 28),
+            iconView.widthAnchor.constraint(equalToConstant: 26),
+            iconView.heightAnchor.constraint(equalToConstant: 26),
 
-            rainLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 4),
-            rainLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-            rainLabel.widthAnchor.constraint(equalToConstant: 36),
+            minLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 8),
+            minLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            minLabel.widthAnchor.constraint(equalToConstant: 34),
 
+            barView.leadingAnchor.constraint(equalTo: minLabel.trailingAnchor, constant: 6),
+            barView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            barView.heightAnchor.constraint(equalToConstant: 4),
+
+            maxLabel.leadingAnchor.constraint(equalTo: barView.trailingAnchor, constant: 6),
             maxLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),
             maxLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-            maxLabel.widthAnchor.constraint(equalToConstant: 36),
-
-            minLabel.trailingAnchor.constraint(equalTo: maxLabel.leadingAnchor, constant: -12),
-            minLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-            minLabel.widthAnchor.constraint(equalToConstant: 36)
+            maxLabel.widthAnchor.constraint(equalToConstant: 34)
         ])
 
         return container

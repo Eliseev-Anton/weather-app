@@ -13,13 +13,25 @@ final class WeatherService {
 
     func fetchWeather(for coordinate: CLLocationCoordinate2D) async throws -> WeatherData {
         let query = "\(coordinate.latitude),\(coordinate.longitude)"
+        return try await fetchWeather(query: query)
+    }
 
+    func fetchWeather(city: String) async throws -> WeatherData {
+        let encoded = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? city
+        return try await fetchWeather(query: encoded)
+    }
+
+    private func fetchWeather(query: String) async throws -> WeatherData {
         guard let forecastURL = URL(string: "\(baseURL)/forecast.json?key=\(apiKey)&q=\(query)&days=3") else {
             throw NetworkError.invalidURL
         }
 
         let response: ForecastResponse = try await networkService.request(forecastURL)
         return mapToWeatherData(response)
+    }
+
+    func testMapToWeatherData(_ response: ForecastResponse) -> WeatherData {
+        mapToWeatherData(response)
     }
 
     private func mapToWeatherData(_ response: ForecastResponse) -> WeatherData {
